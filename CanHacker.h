@@ -46,6 +46,7 @@ class CanHacker {
         };
 
         CanHacker(Stream *stream, Stream *debugStream, uint8_t cs);
+        CanHacker(Stream *stream, Stream *debugStream, uint8_t cs, SPIClass *spi);
         ~CanHacker();
         void setClock(const CAN_CLOCK clock);
         ERROR receiveCommand(const char *buffer, const int length);

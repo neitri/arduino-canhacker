@@ -35,13 +35,17 @@ static inline void _put_id(char *buf, int end_offset, canid_t id)
 #define put_eff_id(buf, id) _put_id(buf, 7, id)
 
 CanHacker::CanHacker(Stream *stream, Stream *debugStream, uint8_t cs) {
+    CanHacker(stream, debugStream, cs, &SPI);
+}
+
+CanHacker::CanHacker(Stream *stream, Stream *debugStream, uint8_t cs, SPIClass *spi) {
     _stream = stream;
     _debugStream = debugStream;
 
     writeDebugStream(F("Initialization\n"));
 
     _cs = cs;
-    mcp2515 = new MCP2515(_cs);
+    mcp2515 = new MCP2515(_cs, spi);
     mcp2515->reset();
     mcp2515->setConfigMode();
 }
